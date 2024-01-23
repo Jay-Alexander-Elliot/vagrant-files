@@ -1,0 +1,27 @@
+---
+- name: Provision Kali Linux VM
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      update_cache: yes
+      upgrade: 'dist'
+
+  # Add OSINT and pentesting specific packages here
+  - name: Install OSINT and pentesting tools
+    apt:
+      name:
+        - nmap
+        - wireshark
+        # Add other tools as per your requirement
+      state: latest
+
+  - name: Clean up apt cache
+    apt:
+      autoclean: yes
+      autoremove: yes
+
+  # Add more tasks for your specific setup here...

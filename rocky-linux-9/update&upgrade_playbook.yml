@@ -1,0 +1,45 @@
+---
+- name: Provision Vagrant VM
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: Ensure dnf-automatic is installed (Rocky Linux uses DNF)
+    dnf:
+      name: dnf-automatic
+      state: present
+
+  - name: Update and upgrade dnf packages
+    dnf:
+      name: '*'
+      state: latest
+
+  - name: Install necessary packages
+    dnf:
+      name:
+        - wget
+        - vim
+        - net-tools
+        - gcc
+        - make
+        - tar
+        - git
+        - unzip
+        - sysstat
+        - tree
+        - docker
+        - docker-compose
+        - clang
+        - lldb
+        - llvm
+        - java-11-openjdk-devel
+      state: latest
+
+  # Add more tasks for your specific setup here...
+
+  - name: Clean up dnf cache
+    dnf:
+      autoremove: yes
+
+  # Add additional roles or tasks as needed
