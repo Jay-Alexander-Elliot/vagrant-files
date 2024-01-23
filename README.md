@@ -4,8 +4,8 @@ This repository contains the Vagrant configurations for a range of base images c
 
 ## Supported Operating Systems
 
-- **FreeBSD 13** (Needs Update)
-- **Kali Linux** (TODO: Specific tasks to be completed)
+- **FreeBSD 13**
+- **Kali Linux**
 - **Amazon Linux 2**
 - **Rocky Linux 9**
 - **Ubuntu 22.04**

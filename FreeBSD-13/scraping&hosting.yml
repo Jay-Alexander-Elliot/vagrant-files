@@ -1,0 +1,43 @@
+---
+- name: Provision Vagrant VM with specific packages
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+  - name: Update and upgrade pkg packages
+    shell: pkg update && pkg upgrade -y
+    args:
+      warn: no
+
+  - name: Install FreeBSD jail utilities
+    pkgng:
+      name:
+        - iocage  # iocage is a jail management tool
+      state: latest
+
+  - name: Install necessary packages
+    pkgng:
+      name:
+        - yt-dlp  # Note: Ensure yt-dlp is available in the FreeBSD package repository or install via pip
+        - ffmpeg
+        - deluge
+        - jellyfin
+        - python  # This will install the default version of Python, ensure it's Python 3
+      state: latest
+
+  # If yt-dlp is not available in the package repository, install it using pip.
+  - name: Install yt-dlp using pip
+    pip:
+      name: yt-dlp
+      state: latest
+
+  # Configuration tasks for the installed applications can be added here.
+  # ...
+
+  - name: Clean up pkg cache
+    shell: pkg clean -y
+    args:
+      warn: no
+
+  # Add additional roles or tasks as needed
